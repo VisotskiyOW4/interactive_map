@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Map</title>
+    {% load static %}
+    <style>
+        .wrapper {
+            position: relative;
+            width: 100%;
+            max-width: 1492px;
+            margin: 0 auto;
+        }
+        .map {
+            position: relative;
+        }
+        .map svg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: auto;
+        }
+        .map img {
+            width: 100%;
+            height: auto;
+        }
+        .room {
+            cursor: pointer;
+            fill: transparent;
+            stroke: black;
+        }
+        .room:hover {
+            fill: rgba(0, 0, 255, 0.1);
+        }
+        .table {
+            margin-top: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        th.item-number {
+            width: 10%;
+        }
+        th.item-name {
+            width: 30%;
+        }
+        th.specification {
+            width: 40%;
+        }
+        th.category {
+            width: 20%;
+        }
+    </style>
+</head>
+<body>
+
+<div class="wrapper">
+    <label for="floor-select">Select Floor:</label>
+    <select id="floor-select">
+        {% for floor in floors %}
+            <option value="{{ floor.id }}">Floor {{ floor.floor }}</option>
+        {% endfor %}
+    </select>
+
+    <div class="map" id="map-container">
+        {% for floor in floors %}
+            <div class="floor-map" id="floor-{{ floor.id }}" style="display: none;">
+                <svg viewBox="0 0 1492 1188" id="map-svg-{{ floor.id }}">
+                    {% for room in rooms %}
+                        {% if room.floor == floor %}
+                            <path class="room" id="room-{{ room.room_number }}" data-room="{{ room.room_number }}" stroke-width="5" d="{{ room.svg_path }}"/>
+                        {% endif %}
+                    {% endfor %}
+                </svg>
+                <img src="{{ floor.svg.url }}" alt="Floor {{ floor.floor }}">
+            </div>
+        {% endfor %}
+    </div>
+</div>
+<div class="table" id="table">
+    <h2>Items in Room <span id="room-number-title"></span></h2>
+    <table id="items-table">
+        <thead>
+            <tr>
+                <th class="item-number">Item Number</th>
+                <th class="item-name">Item Name</th>
+                <th class="specification">Specification</th>
+                <th class="category">Category</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+</div>
+<script src="{% static 'map/main.js' %}"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const floorSelect = document.getElementById('floor-select');
+        const floors = document.querySelectorAll('.floor-map');
+        const roomNumberTitle = document.getElementById('room-number-title');
+
+        // Показати перший поверх за замовчуванням
+        if (floors.length > 0) {
+            floors[0].style.display = 'block';
+        }
+
+        floorSelect.addEventListener('change', function() {
+            const selectedFloor = this.value;
+
+            floors.forEach(floor => {
+                floor.style.display = 'none';
+            });
+
+            const floorToShow = document.getElementById('floor-' + selectedFloor);
+            if (floorToShow) {
+                floorToShow.style.display = 'block';
+            }
+        });
+
+        const rooms = document.querySelectorAll('.room');
+        rooms.forEach(room => {
+            room.addEventListener('click', function() {
+                const roomNumber = this.getAttribute('data-room');
+                roomNumberTitle.textContent = roomNumber; // Оновлення заголовка таблиці
+                fetch(`/get_room_items/${roomNumber}/`)
+                    .then(response => response.json())
+                    .then(data => {
+                        const tableBody = document.querySelector('#items-table tbody');
+                        tableBody.innerHTML = ''; // Clear existing rows
+                        data.items.forEach(item => {
+                            const row = document.createElement('tr');
+                            row.innerHTML = `
+                                <td>${item.item_number}</td>
+                                <td>${item.item_name}</td>
+                                <td>${item.specification}</td>
+                                <td>${item.category_name}</td>
+                            `;
+                            tableBody.appendChild(row);
+                        });
+                    });
+            });
+        });
+    });
+</script>
+
+</body>
+</html>
