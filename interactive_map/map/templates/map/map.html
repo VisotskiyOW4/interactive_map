@@ -12,12 +12,14 @@
         <header class="header">Liceum 66</header>
         <div class="content">
             <div class="map-wrapper">
-                <label for="floor-select">Select Floor:</label>
-                <select id="floor-select">
-                    {% for floor in floors %}
-                        <option value="{{ floor.id }}">Floor {{ floor.floor }}</option>
-                    {% endfor %}
-                </select>
+                <div class="map-controls">
+                    <label for="floor-select">Select Floor:</label>
+                    <select id="floor-select">
+                        {% for floor in floors %}
+                            <option value="{{ floor.id }}">Floor {{ floor.floor }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
                 <div class="map" id="map-container">
                     {% for floor in floors %}
                         <div class="floor-map" id="floor-{{ floor.id }}" style="display: none;">
