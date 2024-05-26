@@ -2,11 +2,11 @@ body {
     font-family: 'Arial', sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f4f4f4;
+    background-color: #ffffff;  /* Білий фон */
 }
 
 .container {
-    max-width: 1900px;
+    max-width: 1800px;
     margin: 0 auto;
     padding: 20px;
 }
@@ -15,7 +15,7 @@ body {
     font-size: 2em;
     margin-bottom: 20px;
     text-align: center;
-    color: #333;
+    color: #000000; /* Чорний */
 }
 
 .content {
@@ -28,10 +28,10 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: #fff;
+    background-color: #ffffff;  /* Білий фон */
     padding: 20px;
     border-radius: 10px;
-    box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .map-controls {
@@ -43,13 +43,16 @@ body {
     display: block;
     margin-bottom: 10px;
     font-weight: bold;
+    color: #000000;  /* Чорний */
 }
 
 .map-wrapper select {
     padding: 10px;
     border-radius: 5px;
-    border: 1px solid #ddd;
+    border: 1px solid #000000;  /* Чорний */
     font-size: 1em;
+    background-color: #ffffff;  /* Білий фон */
+    color: #000000;  /* Чорний текст */
 }
 
 .map {
@@ -76,17 +79,17 @@ body {
 .room {
     cursor: pointer;
     fill: transparent;
-    stroke: #333;
+    stroke: #000000;  /* Чорний */
     transition: fill 0.3s;
 }
 
 .room:hover {
-    fill: rgba(0, 0, 255, 0.1);
+    fill: rgba(0, 0, 0, 0.1);  /* Чорний з прозорістю */
 }
 
 .table-wrapper {
     flex: 1;
-    background-color: white;
+    background-color: #ffffff;  /* Білий фон */
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -94,24 +97,36 @@ body {
 
 .table-wrapper h2 {
     margin-top: 0;
-    color: #333;
+    color: #000000;  /* Чорний */
 }
 
 table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
+    font-size: 1em;
+    table-layout: fixed; /* Фіксована ширина колонок */
 }
 
 th, td {
-    border: 1px solid #ddd;
+    border: 1px solid #dddddd;
     padding: 12px;
     text-align: left;
     font-size: 1em;
+    overflow: hidden; /* Приховати переповнений текст */
+    text-overflow: ellipsis; /* Додати три крапки для переповненого тексту */
+    white-space: nowrap; /* Заборонити переноси */
 }
 
 th {
     background-color: #f9f9f9;
+    color: #000000;  /* Чорний */
+    text-align: center;
+}
+
+td {
+    background-color: #ffffff;  /* Білий фон */
+    color: #000000;  /* Чорний */
 }
 
 th.item-number {
@@ -130,6 +145,7 @@ th.category {
     width: 15%;
 }
 
-td {
-    background-color: #fff;
+tr:hover td {
+    background-color: #f1f1f1; /* Світло-сірий фон для рядків при наведенні */
+    transition: background-color 0.3s;
 }
