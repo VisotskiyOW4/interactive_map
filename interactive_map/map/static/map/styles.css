@@ -6,7 +6,7 @@ body {
 }
 
 .container {
-    max-width: 1800px;
+    max-width: 1900px;
     margin: 0 auto;
     padding: 20px;
 }
@@ -93,6 +93,7 @@ body {
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 60%; /* Збільшено ширину блоку таблиці */
 }
 
 .table-wrapper h2 {
@@ -105,7 +106,7 @@ table {
     border-collapse: collapse;
     margin-top: 20px;
     font-size: 1em;
-    table-layout: fixed; /* Фіксована ширина колонок */
+    table-layout: auto; /* Відмовлено від фіксованої ширини */
 }
 
 th, td {
@@ -113,15 +114,13 @@ th, td {
     padding: 12px;
     text-align: left;
     font-size: 1em;
-    overflow: hidden; /* Приховати переповнений текст */
-    text-overflow: ellipsis; /* Додати три крапки для переповненого тексту */
-    white-space: nowrap; /* Заборонити переноси */
 }
 
 th {
     background-color: #f9f9f9;
     color: #000000;  /* Чорний */
     text-align: center;
+    white-space: nowrap; /* Запобігання переносу заголовків */
 }
 
 td {
