@@ -1,32 +1,44 @@
 body {
-    font-family: 'Arial', sans-serif;
+    font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #ffffff;  /* Білий фон */
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
 }
 
 .container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
     max-width: 1900px;
     margin: 0 auto;
     padding: 20px;
+    box-sizing: border-box;
 }
 
 .header {
     font-size: 2em;
     margin-bottom: 20px;
+    flex-shrink: 0;
     text-align: center;
     color: #000000; /* Чорний */
 }
 
 .content {
     display: flex;
-    gap: 20px;
+    flex-grow: 1;
+    overflow: hidden;
 }
 
 .map-wrapper {
     flex: 2;
+    margin-right: 20px;
     display: flex;
     flex-direction: column;
+    height: 100%;
     align-items: center;
     background-color: #ffffff;  /* Білий фон */
     padding: 20px;
@@ -43,6 +55,7 @@ body {
     display: block;
     margin-bottom: 10px;
     font-weight: bold;
+    flex-shrink: 0;
     color: #000000;  /* Чорний */
 }
 
@@ -58,11 +71,13 @@ body {
 .map {
     position: relative;
     width: 100%;
+    flex-grow: 1;
+    overflow: hidden;
 }
 
 .map svg {
     width: 100%;
-    height: auto;
+    height: 100%;
     position: absolute;
     top: 0;
     left: 0;
@@ -70,7 +85,7 @@ body {
 
 .map img {
     width: 100%;
-    height: auto;
+    height: 100%;
     display: block;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -94,11 +109,16 @@ body {
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     width: 60%; /* Збільшено ширину блоку таблиці */
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow: auto;
 }
 
 .table-wrapper h2 {
     margin-top: 0;
     color: #000000;  /* Чорний */
+    flex-shrink: 0;
 }
 
 table {
@@ -107,11 +127,12 @@ table {
     margin-top: 20px;
     font-size: 1em;
     table-layout: auto; /* Відмовлено від фіксованої ширини */
+    flex-grow: 1;
 }
 
 th, td {
     border: 1px solid #dddddd;
-    padding: 12px;
+    padding: 8%;
     text-align: left;
     font-size: 1em;
 }
